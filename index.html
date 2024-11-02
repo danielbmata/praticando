@@ -65,9 +65,12 @@
             right: 0;
             width: 50%;
             height: 100%;
-            background-color: #395f30;
+            background-color: #606f5d;
             border-radius: 3%;
             display: none;
+            transform: translateX(100%);
+            /* Inicia fora da tela à direita */
+            transition: transform 0.3s ease-in-out;
 
         }
 
@@ -77,9 +80,12 @@
             left: 0;
             width: 50%;
             height: 100%;
-            background-color: #696239;
+            background-color: #3f3e36;
             border-radius: 3%;
             display: none;
+            transform: translateX(-100%);
+            /* Inicia fora da tela à esquerda */
+            transition: transform 0.3s ease-in-out;
         }
 
         /*faça com que a class="bate-papo" seja um quadrado cinza no centro da tela, com distancias iguais das bordas:*/
@@ -92,21 +98,155 @@
             /* ou a largura que desejar */
             height: 369px;
             /* ou a altura que desejar */
-            background-color: gray;
+            background-color: rgb(99, 99, 99);
+            box-sizing: border-box;
         }
 
 
         .parte-direita,
         .parte-esquerda {
-            /* ... outros estilos ... */
+
             display: none;
             /* Escondido por padrão */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            /* Sombra sutil */
         }
+
 
         .parte-direita.active,
         .parte-esquerda.active {
             display: block;
-            /* Visível quando a classe 'active' estiver presente */
+            opacity: 1;
+            visibility: visible;
+
+        }
+
+        .parte-direita.active {
+            transform: translateX(0);
+            /* Desliza para dentro da tela */
+        }
+
+        .parte-esquerda.active {
+            transform: translateX(0);
+            /* Desliza para dentro da tela */
+        }
+
+        .area-mensagens {
+            height: calc(100% - 50px);
+            /* Ocupar o espaço restante */
+            overflow-y: auto;
+            /* Barra de rolagem vertical quando necessário */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .mensagem {
+            background-color: #fff;
+            /* Cor de fundo da mensagem */
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            max-width: 80%;
+            /* Limitar a largura da mensagem */
+            max-height: 150px;
+            /* Altura máxima da mensagem */
+            overflow-y: auto;
+            /* Adiciona barra de rolagem se necessário */
+            word-break: break-word;
+            /* Quebra de palavras em linhas longas*/
+            overflow-wrap: break-word;
+            /* Compatibilidade com navegadores mais antigos */
+        }
+
+        .mensagem.usuario {
+            /* Estilos para mensagens do usuário */
+            align-self: flex-end;
+            /* Alinhar à direita */
+            background-color: #dcf8c6;
+            /* Cor de fundo diferente */
+        }
+
+        .mensagem.outro-usuario {
+            /* Estilos para mensagens de outros usuários */
+            align-self: flex-start;
+            /* Alinhar à esquerda */
+        }
+
+        .area-input {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            border-top: 1px solid #ccc;
+            /* Separador */
+            box-sizing: border-box;
+        }
+
+        .area-input input[type="text"] {
+            flex-grow: 1;
+            /* Ocupar o espaço restante */
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+        }
+
+        .area-input button {
+            background-color: #FFBD44;
+            /* Cor do botão */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: top;
+        }
+
+        .texto-mensagem {
+            word-break: break-word;
+        }
+
+        .botao-enviar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background-color: #007bff;
+            /* Cor de fundo do botão */
+            position: relative;
+            /* Necessário para posicionar o pseudo-elemento */
+            cursor: pointer;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Centralizar o ícone */
+        }
+
+        .botao-enviar::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            /* Centraliza e rotaciona */
+            border-top: 5px solid white;
+            /* "Asa" superior da seta */
+            border-right: 5px solid white;
+            /* "Asa" inferior da seta */
+            width: 10px;
+            height: 10px;
+
+
         }
     </style>
 </head>
@@ -127,7 +267,16 @@
 
 
 
-    <div class="bate-papo"></div>
+    <div class="bate-papo">
+        <div class="area-mensagens">
+            <div class="mensagem outro-usuario">Olá!</div>
+            <div class="mensagem usuario">Tudo bem?</div>
+        </div>
+        <div class="area-input">
+            <input type="text" placeholder="Digite sua mensagem...">
+            <button class="botao-enviar"></button>
+        </div>
+    </div>
     <div class="parte-direita"></div>
     <div class="parte-esquerda"></div>
 
@@ -146,6 +295,34 @@
             document.querySelector('.parte-esquerda').classList.toggle('active');
         }
 
+        // PARTE DO CHAT:
+        const areaMensagens = document.querySelector('.area-mensagens');
+        const inputMensagem = document.querySelector('.area-input input[type="text"]');
+        const botaoEnviar = document.querySelector('.area-input button');
+
+        botaoEnviar.onclick = function () {
+            const mensagemTexto = inputMensagem.value;
+            if (mensagemTexto.trim() !== "") {
+                const novaMensagem = document.createElement('div');
+                novaMensagem.classList.add('mensagem', 'usuario');
+
+                const horario = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                // Adiciona avatar e horário
+                novaMensagem.innerHTML = `<img src="caminho/para/avatar.jpg" alt="Avatar" class="avatar"> <div class="texto-mensagem">${mensagemTexto} - ${horario}</div>`;
+                areaMensagens.appendChild(novaMensagem);
+                inputMensagem.value = "";
+                areaMensagens.scrollTo({
+                    top: areaMensagens.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        };
+
+        inputMensagem.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                botaoEnviar.click();
+            }
+        });
 
     </script>
 </body>
