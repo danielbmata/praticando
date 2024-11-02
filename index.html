@@ -141,16 +141,17 @@
             /* Barra de rolagem vertical quando necessário */
             padding: 10px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            /* Empilha as mensagens verticalmente */
         }
 
         .mensagem {
-            background-color: #fff;
+            background-color: #FFBD44;
             /* Cor de fundo da mensagem */
             padding: 10px;
             margin-bottom: 5px;
             border-radius: 8px;
-            max-width: 80%;
-            /* Limitar a largura da mensagem */
             max-height: 150px;
             /* Altura máxima da mensagem */
             overflow-y: auto;
@@ -159,6 +160,14 @@
             /* Quebra de palavras em linhas longas*/
             overflow-wrap: break-word;
             /* Compatibilidade com navegadores mais antigos */
+            display: flex;
+            /* Permite que a largura se ajuste ao conteúdo */
+            max-width: 70%;
+            /* Define um limite máximo para evitar que ocupem toda a largura */
+            vertical-align: top;
+            /* Corrige problemas de alinhamento com o avatar */
+            align-items: flex-start;
+            /* Alinha o avatar e o texto no topo */
         }
 
         .mensagem.usuario {
@@ -167,6 +176,9 @@
             /* Alinhar à direita */
             background-color: #dcf8c6;
             /* Cor de fundo diferente */
+
+            flex-direction: row-reverse;
+            /* Inverte a ordem: avatar à direita */
         }
 
         .mensagem.outro-usuario {
@@ -213,6 +225,7 @@
 
         .texto-mensagem {
             word-break: break-word;
+            margin-left: 10px;
         }
 
         .botao-enviar {
@@ -247,6 +260,11 @@
             height: 10px;
 
 
+        }
+
+        .mensagem.usuario .texto-mensagem {
+            margin-right: 10px;
+            margin-left: 0;
         }
     </style>
 </head>
