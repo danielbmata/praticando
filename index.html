@@ -4,24 +4,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="meuEstilo.css">
+    <title>Praticando</title>
+
+    <style>
+        /* CSS padrão para desktop */
+        body {
+            font-size: 18px;
+            margin: 0px;
+            background-color: black;
+        }
+
+        /* Criar um menu no topo da página: */
+        .menu {
+            width: 100%;
+            height: 50px;
+            background-color: rgb(21, 23, 24);
+            border-bottom-left-radius: 9px;
+            border-bottom-right-radius: 9px;
+            position: relative;
+            /* Para o submenu */
+        }
+
+        .bolinha-verde,
+        .bolinha-amarela,
+        .bolinha-vermelha {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-top: 15px;
+            margin-left: 15px;
+            float: left;
+
+            transition: transform 0.3s ease;
+
+        }
+
+        .bolinha-verde:hover,
+        .bolinha-amarela:hover,
+        .bolinha-vermelha:hover {
+            transform: scale(1.2);
+
+        }
+
+        .bolinha-verde {
+            background-color: #00CA4E;
+        }
+
+        .bolinha-amarela {
+            background-color: #FFBD44;
+        }
+
+        .bolinha-vermelha {
+            background-color: #FF605C;
+        }
+
+
+        .parte-direita {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background-color: #395f30;
+            border-radius: 3%;
+            display: none;
+
+        }
+
+        .parte-esquerda {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background-color: #696239;
+            border-radius: 3%;
+            display: none;
+        }
+
+        /*faça com que a class="bate-papo" seja um quadrado cinza no centro da tela, com distancias iguais das bordas:*/
+        .bate-papo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 480px;
+            /* ou a largura que desejar */
+            height: 369px;
+            /* ou a altura que desejar */
+            background-color: gray;
+        }
+
+
+        .parte-direita,
+        .parte-esquerda {
+            /* ... outros estilos ... */
+            display: none;
+            /* Escondido por padrão */
+        }
+
+        .parte-direita.active,
+        .parte-esquerda.active {
+            display: block;
+            /* Visível quando a classe 'active' estiver presente */
+        }
+    </style>
 </head>
 
 <body>
     <div class="menu">
-        <a href="#"><div class="bolinha-vermelha"></div></a>
-        <a href="#"><div class="bolinha-amarela"></div></a>
-        <a href="#"><div class="bolinha-verde"></div></a>
-        
-    </div>
-    
-    <div class="parte-direita">
+        <a href="#">
+            <div class="bolinha-vermelha"></div>
+        </a>
+        <a href="#">
+            <div class="bolinha-amarela"></div>
+        </a>
+        <a href="#">
+            <div class="bolinha-verde"></div>
+        </a>
 
     </div>
 
 
-    <script src="meusScripts.js"></script>
+
+    <div class="bate-papo"></div>
+    <div class="parte-direita"></div>
+    <div class="parte-esquerda"></div>
+
+
+    <script>
+        document.querySelector('.bolinha-verde').onclick = function () {
+            document.querySelector('.parte-direita').classList.toggle('active');
+        }
+
+        document.querySelector('.bolinha-vermelha').onclick = function () {
+            document.querySelector('.parte-direita').classList.remove('active');
+            document.querySelector('.parte-esquerda').classList.remove('active');
+        }
+
+        document.querySelector('.bolinha-amarela').onclick = function () {
+            document.querySelector('.parte-esquerda').classList.toggle('active');
+        }
+
+
+    </script>
 </body>
 
 </html>
