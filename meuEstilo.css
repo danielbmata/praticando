@@ -1,35 +1,50 @@
-/* CSS padrão para desktop */
-body {
-    font-size: 18px;
-    margin: 0px;
-    background-color: black;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Criar um menu no topo da página: */
-.menu { 
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    /* Remove barras de rolagem */
+}
+
+/* Menu fixo no topo da página ocupando toda a largura */
+.menu {
     width: 100%;
     height: 50px;
     background-color: rgb(21, 23, 24);
-    border-bottom-left-radius: 9px;
-    border-bottom-right-radius: 9px;
-    position: relative; /* Para o submenu */
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
-.bolinha-verde, .bolinha-amarela, .bolinha-vermelha {
+.bolinha-verde,
+.bolinha-amarela,
+.bolinha-vermelha {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    margin-top: 15px;
-    margin-left: 15px;
-    float: left; 
-    
+    margin: 0 8px;
     transition: transform 0.3s ease;
-
 }
 
-.bolinha-verde:hover, .bolinha-amarela:hover, .bolinha-vermelha:hover {
-    transform: scale(1.2);          
-    
+.bolinha-verde:hover,
+.bolinha-amarela:hover,
+.bolinha-vermelha:hover {
+    transform: scale(1.2);
 }
 
 .bolinha-verde {
@@ -44,19 +59,296 @@ body {
     background-color: #FF605C;
 }
 
-
-/*um retangulo no lado direito da tela na vertical que estará por baixo do menu e icone submenu, e vem até a metade da tela */
-.parte-direita {
-    position: absolute;
-    top: 50px;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    background-color: #5f3838;
-    display: none;
-    /*border-radius apenas no lado esquerdo*/
-    
-    border-radius: 3%;
-
+/* Centralizar o contêiner de bate-papo */
+.bate-papo {
+    width: 400px;
+    height: 600px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 70px;
+    /* Espaço para o menu */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
+/* Área de mensagens */
+.area-mensagens {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f7f8fa;
+}
+
+.mensagem {
+    max-width: 70%;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.4;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.mensagem.usuario {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    align-self: flex-end;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+}
+
+.mensagem.outro-usuario {
+    background-color: #e9ecef;
+    color: #495057;
+    align-self: flex-start;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+/* Área de input */
+.area-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background-color: #ffffff;
+}
+
+.area-input input[type="text"] {
+    flex-grow: 1;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: #f1f3f5;
+    margin-right: 10px;
+    font-size: 15px;
+    outline: none;
+}
+
+.area-input button {
+    background-color: #4476ff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Estilos Modernos das Partes Direita e Esquerda */
+.parte-direita,
+.parte-esquerda {
+    position: absolute;
+    top: 60px;
+    width: 50%;
+    height: calc(100% - 60px);
+    border-radius: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out, transform 0.4s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px) saturate(1.2);
+    /* Efeito de vidro fosco */
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    /* Compatibilidade com Safari */
+}
+
+/* Animação de entrada */
+.parte-direita.active,
+.parte-esquerda.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Estilo da Parte Direita */
+.parte-direita {
+    right: 0;
+    background: rgba(42, 49, 61, 0.85);
+    /* Cor moderna - azul acinzentado com opacidade */
+    transform: translateX(100%);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Transição suave */
+}
+
+.parte-direita.active {
+    transform: translateX(0);
+}
+
+/* Estilo da Parte Esquerda */
+.parte-esquerda {
+    left: 0;
+    background: rgba(58, 64, 76, 0.85);
+    /* Cor moderna - cinza grafite com toque de azul */
+    transform: translateX(-100%);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Transição suave */
+}
+
+.parte-esquerda.active {
+    transform: translateX(0);
+}
+
+/* Responsividade - Ajustes para telas menores */
+@media (max-width: 768px) {
+
+    .parte-direita,
+    .parte-esquerda {
+        width: 100%;
+        height: calc(100% - 60px);
+        top: 60px;
+        border-radius: 0;
+    }
+}
+
+/* Efeito de sombra suave e transições */
+.parte-direita:hover,
+.parte-esquerda:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+    /* Leve aumento ao passar o mouse */
+}
+
+/* Adiciona uma borda sutil ao redor das partes */
+.parte-direita,
+.parte-esquerda {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    /* Borda sutil para destacar as seções */
+}
+
+
+.botao-enviar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.botao-enviar:hover {
+    background-color: #0056b3;
+}
+
+.botao-enviar::before {
+    content: "➤";
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Barra de rolagem estilizada */
+.area-mensagens::-webkit-scrollbar {
+    width: 8px;
+}
+
+.area-mensagens::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.area-mensagens::-webkit-scrollbar-track {
+    background-color: #f0f2f5;
+}
+
+/* Estilos da seção de perfil */
+.parte-esquerda .perfil-usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+.parte-esquerda .perfil-usuario:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos do avatar */
+.avatar-container {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 3px solid #007bff;
+    transition: border-color 0.3s;
+}
+
+.avatar-container:hover {
+    border-color: #0056b3;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Nome do usuário */
+.nome {
+    font-weight: bold;
+    font-size: 1.4em;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Cidade e biografia */
+.cidade,
+.bio {
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 0.95em;
+}
+
+/* Biografia com fundo diferenciado */
+.bio {
+    font-size: 0.9em;
+    color: #333;
+    background-color: #f1f3f5;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    max-width: 250px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Botão de editar perfil */
+.editar-perfil {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.editar-perfil i {
+    margin-right: 5px;
+}
+
+.editar-perfil:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
