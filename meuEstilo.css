@@ -1,3 +1,44 @@
+/* Variáveis para o modo claro (valores padrão) */
+:root {
+    --cor-de-fundo: #f0f2f5;
+    --cor-do-texto: #333;
+    --cor-de-fundo-mensagem-usuario: #d1e7dd;
+    --cor-do-texto-mensagem-usuario: #0f5132;
+    --cor-de-fundo-mensagem-outro: #e9ecef;
+    --cor-do-texto-mensagem-outro: #495057;
+    --cor-de-fundo-input: #f1f3f5;
+    --cor-do-texto-input: #333;
+    --cor-fundo-menu: rgb(21, 23, 24);
+    --cor-bolinha-verde: #00CA4E;
+    --cor-bolinha-amarela: #FFBD44;
+    --cor-bolinha-vermelha: #FF605C;
+    --cor-borda-input: #ddd; /* Adicionei a cor da borda do input */
+    --cor-de-fundo-mensagens: #f7f8fa;
+
+
+    /* ... outras cores do modo claro ... */
+}
+
+/* Variáveis para o modo escuro */
+body.dark-mode {
+    /* Quando a classe 'dark-mode' estiver presente no body */
+    --cor-de-fundo: #1e2128;
+    --cor-do-texto: #e0e2e7;
+    --cor-de-fundo-mensagem-usuario: linear-gradient(135deg, #628afc, #4f74e6);
+    --cor-do-texto-mensagem-usuario: white;
+    --cor-de-fundo-mensagem-outro: #3a3e45;
+    --cor-do-texto-mensagem-outro: #a3a7b2;
+    --cor-de-fundo-input: #3a3e45;
+    --cor-do-texto-input: #a3a7b2;
+    --cor-fundo-menu: #2a2e35;
+    --cor-borda-input: #333842; /* Cor da borda do input no modo escuro */
+    --cor-de-fundo-mensagens: #24272e;
+
+
+
+    /* ... outras cores do modo escuro ... */
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,8 +48,8 @@
 body {
     font-family: Arial, sans-serif;
     font-size: 16px;
-    background-color: #f0f2f5;
-    color: #333;
+    background-color: var(--cor-de-fundo);
+    color: var(--cor-do-texto);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,11 +59,14 @@ body {
     /* Remove barras de rolagem */
 }
 
+
+
 /* Menu fixo no topo da página ocupando toda a largura */
 .menu {
     width: 100%;
     height: 50px;
-    background-color: rgb(21, 23, 24);
+    background-color: var(--cor-fundo-menu);
+    /* Cor de fundo do menu, usando a variável */
     display: flex;
     align-items: center;
     padding-left: 16px;
@@ -48,22 +92,23 @@ body {
 }
 
 .bolinha-verde {
-    background-color: #00CA4E;
+    background-color: var(--cor-bolinha-verde);
 }
 
 .bolinha-amarela {
-    background-color: #FFBD44;
+    background-color: var(--cor-bolinha-amarela);
 }
 
 .bolinha-vermelha {
-    background-color: #FF605C;
+    background-color: var(--cor-bolinha-vermelha);
 }
 
 /* Centralizar o contêiner de bate-papo */
 .bate-papo {
     width: 400px;
     height: 600px;
-    background-color: #ffffff;
+
+    background-color: var(--cor-de-fundo);
     border-radius: 10px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
     margin-top: 70px;
@@ -78,7 +123,7 @@ body {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    background-color: #f7f8fa;
+    background-color: var(--cor-de-fundo-mensagens);
 }
 
 .mensagem {
@@ -92,8 +137,9 @@ body {
 }
 
 .mensagem.usuario {
-    background-color: #d1e7dd;
-    color: #0f5132;
+
+    background-color: var(--cor-de-fundo-mensagem-usuario);
+    color: var(--cor-do-texto-mensagem-usuario);
     align-self: flex-end;
     border-top-right-radius: 4px;
     border-top-left-radius: 18px;
@@ -101,8 +147,8 @@ body {
 }
 
 .mensagem.outro-usuario {
-    background-color: #e9ecef;
-    color: #495057;
+    background-color: var(--cor-de-fundo-mensagem-outro);
+    color: var(--cor-do-texto-mensagem-outro);
     align-self: flex-start;
     border-top-left-radius: 4px;
     border-top-right-radius: 18px;
@@ -114,8 +160,8 @@ body {
     display: flex;
     align-items: center;
     padding: 10px;
-    border-top: 1px solid #ddd;
-    background-color: #ffffff;
+    border-top: 1px solid var(--cor-borda-input);
+    background-color: var(--cor-de-fundo-input);
 }
 
 .area-input input[type="text"] {
@@ -123,20 +169,23 @@ body {
     border: none;
     padding: 10px 15px;
     border-radius: 20px;
-    background-color: #f1f3f5;
+    background-color: var(--cor-de-fundo-input);
+    color: var(--cor-do-texto-input);
     margin-right: 10px;
     font-size: 15px;
     outline: none;
 }
 
 .area-input button {
-    background-color: #4476ff;
-    color: #fff;
+    background-color: #00CA4E;
+    color: white;
+    /* Defina a cor do texto para branco */
     border: none;
     padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
 }
+
 
 /* Estilos Modernos das Partes Direita e Esquerda */
 .parte-direita,
@@ -150,10 +199,7 @@ body {
     visibility: hidden;
     transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out, transform 0.4s ease;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(20px) saturate(1.2);
-    /* Efeito de vidro fosco */
-    -webkit-backdrop-filter: blur(20px) saturate(1.2);
-    /* Compatibilidade com Safari */
+
 }
 
 /* Animação de entrada */
@@ -166,7 +212,7 @@ body {
 /* Estilo da Parte Direita */
 .parte-direita {
     right: 0;
-    background: rgba(42, 49, 61, 0.85);
+    background: rgba(42, 49, 61, 0.95);
     /* Cor moderna - azul acinzentado com opacidade */
     transform: translateX(100%);
     transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -184,6 +230,7 @@ body {
     /* Cor moderna - cinza grafite com toque de azul */
     transform: translateX(-100%);
     transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    color: var(--cor-do-texto);
     /* Transição suave */
 }
 
@@ -223,7 +270,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #007bff;
+    background-color: #00CA4E;
     border: none;
     color: white;
     font-size: 16px;
@@ -235,7 +282,7 @@ body {
 }
 
 .botao-enviar:hover {
-    background-color: #0056b3;
+    background-color: #00CA4E;
 }
 
 .botao-enviar::before {
@@ -265,7 +312,7 @@ body {
     align-items: center;
     text-align: center;
     padding: 20px;
-    background-color: #fff;
+    background-color: #24272e;
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
@@ -276,6 +323,12 @@ body {
 .parte-esquerda .perfil-usuario:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.desfocado {
+    filter: blur(5px);
+    /* Intensidade do desfoque */
+    pointer-events: none;
 }
 
 /* Estilos do avatar */
@@ -305,14 +358,14 @@ body {
     font-weight: bold;
     font-size: 1.4em;
     margin-bottom: 5px;
-    color: #333;
+    color: #757575;
 }
 
 /* Cidade e biografia */
 .cidade,
 .bio {
     margin-bottom: 10px;
-    color: #666;
+    color: #8a8e98;
     font-size: 0.95em;
 }
 
@@ -351,4 +404,92 @@ body {
 .editar-perfil:hover {
     background-color: #0056b3;
     transform: scale(1.05);
+}
+
+/* Estilos do botão switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 34px;
+    /* Arredondado */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    /* Transição suave */
+    margin-top: 3px;
+    /* Espaçamento superior */
+    border: none;
+
+}
+
+.switch.dark-mode-ativo {
+    background-color: #ddd;
+}
+
+/* "Bolinha" do switch */
+.switch::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 19px;
+    height: 19px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    /* Transição suave */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    /* Sombra sutil */
+    z-index: 1;
+}
+
+.switch.dark-mode-ativo.switch::before {
+    transform: translateX(26px);
+    background-color: #e8eaed;
+
+}
+
+.switch-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    transition: opacity 0.3s;
+}
+
+.switch .switch-icon:first-child {
+    left: 8px;
+    opacity: 0;
+
+}
+
+.switch.dark-mode-ativo .switch-icon:first-child {
+    opacity: 1;
+}
+
+.switch .switch-icon:last-child {
+    right: 8px;
+
+
+}
+
+.switch.dark-mode-ativo .switch-icon:last-child {
+    opacity: 0;
+
+}
+
+/* Dark mode ativo */
+.dark-mode .switch {
+    background-color: #4f5764;
+    /* Cinza escuro */
+}
+
+.dark-mode .switch::before {
+    background-color: #007bff;
+    /* Azul */
+    transform: translateX(26px);
+    /* Move a bolinha para a direita */
+
 }

@@ -12,14 +12,22 @@
 </head>
 
 <body>
+    
+    
     <div class="menu">
         <div class="bolinha-vermelha"></div>
         <div class="bolinha-amarela"></div>
         <div class="bolinha-verde"></div>
+        <button id="dark-mode-toggle" class="switch">
+            <span class="switch-icon">☾</span> <span class="switch-icon">☼</span>
+        </button>
+        
     </div>
+    
 
     <div class="bate-papo">
         <div class="area-mensagens">
+            <!-- Mensagens iniciais (opcional) -->
             <div class="mensagem outro-usuario">Olá!</div>
             <div class="mensagem usuario">Tudo bem?</div>
         </div>
@@ -28,7 +36,7 @@
             <button class="botao-enviar"></button>
         </div>
     </div>
-    <!-- Partes direita e esquerda escondidas inicialmente -->
+
     <div class="parte-direita"></div>
     <div class="parte-esquerda">
         <div class="perfil-usuario">
@@ -39,45 +47,50 @@
             <div class="cidade">Cidade do Usuário</div>
             <div class="bio">Bio do usuário...</div>
             <button class="editar-perfil">
-                <i class="fas fa-edit"></i> <!-- Ícone de editar (requer Font Awesome) --> Editar
+                <i class="fas fa-edit"></i> Editar
             </button>
-
         </div>
     </div>
 
     <script>
+        // Seleciona elementos importantes
         const batePapo = document.querySelector('.bate-papo');
+        const parteDireita = document.querySelector('.parte-direita');
+        const parteEsquerda = document.querySelector('.parte-esquerda');
+        const areaMensagens = document.querySelector('.area-mensagens');
+        const inputMensagem = document.querySelector('.area-input input[type="text"]');
+        const botaoEnviar = document.querySelector('.botao-enviar');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
 
+
+        // Event Listeners para as bolinhas do menu
         document.querySelector('.bolinha-verde').onclick = function () {
-            const parteDireita = document.querySelector('.parte-direita');
             parteDireita.classList.toggle('active');
             batePapo.classList.toggle('desfocado', parteDireita.classList.contains('active'));
         };
 
         document.querySelector('.bolinha-amarela').onclick = function () {
-            const parteEsquerda = document.querySelector('.parte-esquerda');
             parteEsquerda.classList.toggle('active');
             batePapo.classList.toggle('desfocado', parteEsquerda.classList.contains('active'));
         };
 
         document.querySelector('.bolinha-vermelha').onclick = function () {
-            document.querySelector('.parte-direita').classList.remove('active');
-            document.querySelector('.parte-esquerda').classList.remove('active');
+            parteDireita.classList.remove('active');
+            parteEsquerda.classList.remove('active');
             batePapo.classList.remove('desfocado');
         };
 
-        const areaMensagens = document.querySelector('.area-mensagens');
-        const inputMensagem = document.querySelector('.area-input input[type="text"]');
-        const botaoEnviar = document.querySelector('.area-input button');
 
+        // Funcionalidade de enviar mensagem
         botaoEnviar.onclick = function () {
             const mensagemTexto = inputMensagem.value;
             if (mensagemTexto.trim() !== "") {
                 const novaMensagem = document.createElement('div');
                 novaMensagem.classList.add('mensagem', 'usuario');
-                novaMensagem.innerHTML = `${mensagemTexto}`;
+                novaMensagem.textContent = mensagemTexto; // Define o texto da mensagem
                 areaMensagens.appendChild(novaMensagem);
-                inputMensagem.value = "";
+                inputMensagem.value = ""; // Limpa o input
                 areaMensagens.scrollTo({
                     top: areaMensagens.scrollHeight,
                     behavior: 'smooth'
@@ -90,6 +103,22 @@
                 botaoEnviar.click();
             }
         });
+
+
+        // Funcionalidade do Dark Mode
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            darkModeToggle.classList.toggle('dark-mode-ativo'); // Alterna a classe do botão também
+
+            // Salva a preferência no localStorage
+            localStorage.setItem('darkMode', body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+        });
+
+        // Verifica a preferência ao carregar a página
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.classList.add('dark-mode-ativo'); // Adiciona a classe ao botão também
+        }
     </script>
 </body>
 
