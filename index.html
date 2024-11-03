@@ -7,22 +7,37 @@
     <title>Praticando</title>
 
     <style>
-        /* CSS padrão para desktop */
-        body {
-            font-size: 18px;
-            margin: 0px;
-            background-color: black;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Criar um menu no topo da página: */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            /* Remove barras de rolagem */
+        }
+
+        /* Menu fixo no topo da página ocupando toda a largura */
         .menu {
             width: 100%;
             height: 50px;
             background-color: rgb(21, 23, 24);
-            border-bottom-left-radius: 9px;
-            border-bottom-right-radius: 9px;
-            position: relative;
-            /* Para o submenu */
+            display: flex;
+            align-items: center;
+            padding-left: 16px;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .bolinha-verde,
@@ -31,19 +46,14 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            margin-top: 15px;
-            margin-left: 15px;
-            float: left;
-
+            margin: 0 8px;
             transition: transform 0.3s ease;
-
         }
 
         .bolinha-verde:hover,
         .bolinha-amarela:hover,
         .bolinha-vermelha:hover {
             transform: scale(1.2);
-
         }
 
         .bolinha-verde {
@@ -58,156 +68,78 @@
             background-color: #FF605C;
         }
 
-
-        .parte-direita {
-            position: absolute;
-            top: 50px;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background-color: #606f5d;
-            border-radius: 3%;
-            display: none;
-            transform: translateX(100%);
-            /* Inicia fora da tela à direita */
-            transition: transform 0.3s ease-in-out;
-
-        }
-
-        .parte-esquerda {
-            position: absolute;
-            top: 50px;
-            left: 0;
-            width: 50%;
-            height: 100%;
-            background-color: #3f3e36;
-            border-radius: 3%;
-            display: none;
-            transform: translateX(-100%);
-            /* Inicia fora da tela à esquerda */
-            transition: transform 0.3s ease-in-out;
-        }
-
-        /*faça com que a class="bate-papo" seja um quadrado cinza no centro da tela, com distancias iguais das bordas:*/
+        /* Centralizar o contêiner de bate-papo */
         .bate-papo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 480px;
-            /* ou a largura que desejar */
-            height: 369px;
-            /* ou a altura que desejar */
-            background-color: rgb(99, 99, 99);
-            box-sizing: border-box;
-        }
-
-
-        .parte-direita,
-        .parte-esquerda {
-
-            display: none;
-            /* Escondido por padrão */
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            /* Sombra sutil */
-        }
-
-
-        .parte-direita.active,
-        .parte-esquerda.active {
-            display: block;
-            opacity: 1;
-            visibility: visible;
-
-        }
-
-        .parte-direita.active {
-            transform: translateX(0);
-            /* Desliza para dentro da tela */
-        }
-
-        .parte-esquerda.active {
-            transform: translateX(0);
-            /* Desliza para dentro da tela */
-        }
-
-        .area-mensagens {
-            height: calc(100% - 50px);
-            /* Ocupar o espaço restante */
-            overflow-y: auto;
-            /* Barra de rolagem vertical quando necessário */
-            padding: 10px;
-            box-sizing: border-box;
+            width: 400px;
+            height: 600px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 70px;
+            /* Espaço para o menu */
             display: flex;
             flex-direction: column;
-            /* Empilha as mensagens verticalmente */
+            overflow: hidden;
+        }
+
+        /* Área de mensagens */
+        .area-mensagens {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f7f8fa;
         }
 
         .mensagem {
-            background-color: #FFBD44;
-            /* Cor de fundo da mensagem */
-            padding: 10px;
-            margin-bottom: 5px;
-            border-radius: 8px;
-            max-height: 150px;
-            /* Altura máxima da mensagem */
-            overflow-y: auto;
-            /* Adiciona barra de rolagem se necessário */
-            word-break: break-word;
-            /* Quebra de palavras em linhas longas*/
-            overflow-wrap: break-word;
-            /* Compatibilidade com navegadores mais antigos */
-            display: flex;
-            /* Permite que a largura se ajuste ao conteúdo */
             max-width: 70%;
-            /* Define um limite máximo para evitar que ocupem toda a largura */
-            vertical-align: top;
-            /* Corrige problemas de alinhamento com o avatar */
-            align-items: flex-start;
-            /* Alinha o avatar e o texto no topo */
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border-radius: 18px;
+            font-size: 15px;
+            line-height: 1.4;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
         }
 
         .mensagem.usuario {
-            /* Estilos para mensagens do usuário */
+            background-color: #d1e7dd;
+            color: #0f5132;
             align-self: flex-end;
-            /* Alinhar à direita */
-            background-color: #dcf8c6;
-            /* Cor de fundo diferente */
-
-            flex-direction: row-reverse;
-            /* Inverte a ordem: avatar à direita */
+            border-top-right-radius: 4px;
+            border-top-left-radius: 18px;
+            border-bottom-left-radius: 18px;
         }
 
         .mensagem.outro-usuario {
-            /* Estilos para mensagens de outros usuários */
+            background-color: #e9ecef;
+            color: #495057;
             align-self: flex-start;
-            /* Alinhar à esquerda */
+            border-top-left-radius: 4px;
+            border-top-right-radius: 18px;
+            border-bottom-right-radius: 18px;
         }
 
+        /* Área de input */
         .area-input {
-            height: 50px;
             display: flex;
             align-items: center;
-            padding: 0 10px;
-            border-top: 1px solid #ccc;
-            /* Separador */
-            box-sizing: border-box;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background-color: #ffffff;
         }
 
         .area-input input[type="text"] {
             flex-grow: 1;
-            /* Ocupar o espaço restante */
             border: none;
-            padding: 10px;
+            padding: 10px 15px;
             border-radius: 20px;
+            background-color: #f1f3f5;
+            margin-right: 10px;
+            font-size: 15px;
+            outline: none;
         }
 
         .area-input button {
             background-color: #FFBD44;
-            /* Cor do botão */
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -215,75 +147,54 @@
             cursor: pointer;
         }
 
-        .avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-            vertical-align: top;
-        }
-
-        .texto-mensagem {
-            word-break: break-word;
-            margin-left: 10px;
-        }
-
-        .botao-enviar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            background-color: #007bff;
-            /* Cor de fundo do botão */
-            position: relative;
-            /* Necessário para posicionar o pseudo-elemento */
-            cursor: pointer;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* Centralizar o ícone */
-        }
-
-        .botao-enviar::before {
-            content: "";
+        /* Estilos das partes direita e esquerda */
+        .parte-direita,
+        .parte-esquerda {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            /* Centraliza e rotaciona */
-            border-top: 5px solid white;
-            /* "Asa" superior da seta */
-            border-right: 5px solid white;
-            /* "Asa" inferior da seta */
-            width: 10px;
-            height: 10px;
-
-
+            top: 50px;
+            width: 50%;
+            height: 100%;
+            border-radius: 3%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        .mensagem.usuario .texto-mensagem {
-            margin-right: 10px;
-            margin-left: 0;
+        .parte-direita.active,
+        .parte-esquerda.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .parte-direita {
+            right: 0;
+            background-color: #606f5d;
+            transform: translateX(100%);
+        }
+
+        .parte-direita.active {
+            transform: translateX(0);
+        }
+
+        .parte-esquerda {
+            left: 0;
+            background-color: #3f3e36;
+            transform: translateX(-100%);
+        }
+
+        .parte-esquerda.active {
+            transform: translateX(0);
         }
     </style>
 </head>
 
 <body>
     <div class="menu">
-        <a href="#">
-            <div class="bolinha-vermelha"></div>
-        </a>
-        <a href="#">
-            <div class="bolinha-amarela"></div>
-        </a>
-        <a href="#">
-            <div class="bolinha-verde"></div>
-        </a>
-
+        <div class="bolinha-vermelha"></div>
+        <div class="bolinha-amarela"></div>
+        <div class="bolinha-verde"></div>
     </div>
-
-
 
     <div class="bate-papo">
         <div class="area-mensagens">
@@ -295,25 +206,31 @@
             <button class="botao-enviar"></button>
         </div>
     </div>
+    <!-- Partes direita e esquerda escondidas inicialmente -->
     <div class="parte-direita"></div>
     <div class="parte-esquerda"></div>
 
-
     <script>
+        const batePapo = document.querySelector('.bate-papo');
+
         document.querySelector('.bolinha-verde').onclick = function () {
-            document.querySelector('.parte-direita').classList.toggle('active');
-        }
+            const parteDireita = document.querySelector('.parte-direita');
+            parteDireita.classList.toggle('active');
+            batePapo.classList.toggle('desfocado', parteDireita.classList.contains('active'));
+        };
+
+        document.querySelector('.bolinha-amarela').onclick = function () {
+            const parteEsquerda = document.querySelector('.parte-esquerda');
+            parteEsquerda.classList.toggle('active');
+            batePapo.classList.toggle('desfocado', parteEsquerda.classList.contains('active'));
+        };
 
         document.querySelector('.bolinha-vermelha').onclick = function () {
             document.querySelector('.parte-direita').classList.remove('active');
             document.querySelector('.parte-esquerda').classList.remove('active');
-        }
+            batePapo.classList.remove('desfocado');
+        };
 
-        document.querySelector('.bolinha-amarela').onclick = function () {
-            document.querySelector('.parte-esquerda').classList.toggle('active');
-        }
-
-        // PARTE DO CHAT:
         const areaMensagens = document.querySelector('.area-mensagens');
         const inputMensagem = document.querySelector('.area-input input[type="text"]');
         const botaoEnviar = document.querySelector('.area-input button');
@@ -323,10 +240,7 @@
             if (mensagemTexto.trim() !== "") {
                 const novaMensagem = document.createElement('div');
                 novaMensagem.classList.add('mensagem', 'usuario');
-
-                const horario = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                // Adiciona avatar e horário
-                novaMensagem.innerHTML = `<img src="caminho/para/avatar.jpg" alt="Avatar" class="avatar"> <div class="texto-mensagem">${mensagemTexto} - ${horario}</div>`;
+                novaMensagem.innerHTML = `${mensagemTexto}`;
                 areaMensagens.appendChild(novaMensagem);
                 inputMensagem.value = "";
                 areaMensagens.scrollTo({
@@ -341,7 +255,6 @@
                 botaoEnviar.click();
             }
         });
-
     </script>
 </body>
 
