@@ -24,11 +24,11 @@ body.dark-mode {
     /* Quando a classe 'dark-mode' estiver presente no body */
     --cor-de-fundo: #1e2128;
     --cor-do-texto: #e0e2e7;
-    --cor-de-fundo-mensagem-usuario: linear-gradient(135deg, #628afc, #4f74e6);
+    --cor-de-fundo-mensagem-usuario: #565b69;
     --cor-do-texto-mensagem-usuario: white;
-    --cor-de-fundo-mensagem-outro: #3a3e45;
+    --cor-de-fundo-mensagem-outro: #506b4e;
     --cor-do-texto-mensagem-outro: #a3a7b2;
-    --cor-de-fundo-input: #3a3e45;
+    --cor-de-fundo-input: #53575f;
     --cor-do-texto-input: #a3a7b2;
     --cor-fundo-menu: #2a2e35;
     --cor-borda-input: #333842; /* Cor da borda do input no modo escuro */
