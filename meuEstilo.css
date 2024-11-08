@@ -73,6 +73,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    gap: 3px;
 }
 
 .bolinha-verde,
@@ -421,6 +422,7 @@ body {
     margin-top: 3px;
     /* Espaçamento superior */
     border: none;
+    margin-left: 63%;
 
 }
 
