@@ -1,1 +1,0 @@
-Projeto começou aqui, mas quero aprender outras tecnologias como NextJS e TailwindCss. Então criei outro repositório onde irei continuar isso que já foi feito aqui, porém agora utilizando as tecnologias que mencionei.

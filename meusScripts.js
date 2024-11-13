@@ -64,3 +64,4 @@ if (localStorage.getItem('darkMode') === 'enabled') {
     body.classList.add('dark-mode');
     darkModeToggle.classList.add('dark-mode-ativo'); // Adiciona a classe ao botão também
 }
+
